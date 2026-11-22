@@ -1,0 +1,1402 @@
+[
+  {
+    "id": "python-comprehensions",
+    "category": "python",
+    "title": "List comprehensions with a filter",
+    "explanation": "List comprehensions transform iterables into lists. Put the expression first and the optional filtering condition after the loop. They are concise for straightforward mappings.",
+    "code_language": "python",
+    "code": "numbers = [1, 2, 3, 4, 5]\nevens_squared = [n * n for n in numbers if n % 2 == 0]\nprint(evens_squared)",
+    "expected_output": "[4, 16]",
+    "complexity": "Time: O(n) for n input values; auxiliary space: O(k) for k retained values.",
+    "key_points": [
+      "Use a comprehension for simple transformations.",
+      "Prefer an explicit loop for complex branching."
+    ]
+  },
+  {
+    "id": "python-enumerate",
+    "category": "python",
+    "title": "Track positions with enumerate",
+    "explanation": "`enumerate` yields an index and the corresponding item without separately updating a counter. The `start` parameter selects the first index.",
+    "code_language": "python",
+    "code": "languages = [\"Python\", \"JavaScript\"]\nfor position, name in enumerate(languages, start=1):\n    print(position, name)",
+    "expected_output": "1 Python\n2 JavaScript",
+    "complexity": "Time: O(n) to visit n items; auxiliary space: O(1) aside from output.",
+    "key_points": [
+      "Avoid manually maintaining a loop counter.",
+      "Use `start=1` for human-facing numbering."
+    ]
+  },
+  {
+    "id": "python-dictionary-get",
+    "category": "python",
+    "title": "Safe dictionary lookup with get",
+    "explanation": "`dict.get(key, default)` reads a value without raising `KeyError` for missing keys. The default is returned only when the key is absent, not when the stored value is `None`.",
+    "code_language": "python",
+    "code": "scores = {\"Ada\": 95}\nprint(scores.get(\"Ada\", 0))\nprint(scores.get(\"Lin\", 0))",
+    "expected_output": "95\n0",
+    "complexity": "Average lookup time: O(1); auxiliary space: O(1).",
+    "key_points": [
+      "Use `get` to supply a missing-key fallback.",
+      "Use membership tests when missing and present-with-None must differ."
+    ]
+  },
+  {
+    "id": "python-generator-expression",
+    "category": "python",
+    "title": "Stream values with a generator expression",
+    "explanation": "A generator expression produces values lazily rather than creating an entire intermediate list. Aggregators such as `sum` consume it one item at a time.",
+    "code_language": "python",
+    "code": "numbers = range(1, 6)\nprint(sum(n * n for n in numbers))",
+    "expected_output": "55",
+    "complexity": "Time: O(n); extra space: O(1) for this streaming reduction.",
+    "key_points": [
+      "Generator expressions avoid intermediate list allocation.",
+      "A generator is consumed as it is iterated."
+    ]
+  },
+  {
+    "id": "python-zip",
+    "category": "python",
+    "title": "Pair iterables with zip",
+    "explanation": "`zip` combines elements in matching positions. By default it stops at the shortest iterable; `strict=True` can raise on mismatched lengths in modern Python.",
+    "code_language": "python",
+    "code": "names = [\"Ada\", \"Grace\"]\nscores = [95, 98]\nprint(dict(zip(names, scores)))",
+    "expected_output": "{'Ada': 95, 'Grace': 98}",
+    "complexity": "Time: O(n) to build the dictionary; auxiliary space: O(n).",
+    "key_points": [
+      "Use `zip` for parallel sequences.",
+      "Validate lengths if truncation would be unsafe."
+    ]
+  },
+  {
+    "id": "python-counter",
+    "category": "python",
+    "title": "Count occurrences using Counter",
+    "explanation": "`collections.Counter` is a dictionary-like frequency table. It handles missing elements as zero and supports `most_common` for ranking.",
+    "code_language": "python",
+    "code": "from collections import Counter\nletters = Counter(\"banana\")\nprint(letters[\"a\"])\nprint(letters.most_common(1))",
+    "expected_output": "3\n[('a', 3)]",
+    "complexity": "Time: O(n) to count n items; space: O(k) for k distinct values.",
+    "key_points": [
+      "Counter is convenient for histograms.",
+      "Frequency counting often simplifies interview problems."
+    ]
+  },
+  {
+    "id": "python-exception-handling",
+    "category": "python",
+    "title": "Handle specific exceptions",
+    "explanation": "Catch expected exception types rather than hiding every failure with a bare `except`. A `try`/`except` block lets the application recover from invalid input.",
+    "code_language": "python",
+    "code": "def parse_port(raw):\n    try:\n        return int(raw)\n    except ValueError:\n        return None\n\nprint(parse_port(\"8080\"))\nprint(parse_port(\"invalid\"))",
+    "expected_output": "8080\nNone",
+    "complexity": "Time: O(m) to parse an m-character number; auxiliary space: O(1).",
+    "key_points": [
+      "Catch a specific failure mode.",
+      "Do not silently catch unrelated programming errors."
+    ]
+  },
+  {
+    "id": "python-dataclasses",
+    "category": "python",
+    "title": "Model records with dataclasses",
+    "explanation": "A `dataclass` generates methods such as `__init__` and `__repr__` from annotated fields. Frozen instances protect against accidental field reassignment.",
+    "code_language": "python",
+    "code": "from dataclasses import dataclass\n\n@dataclass(frozen=True)\nclass Point:\n    x: int\n    y: int\n\nprint(Point(2, 3))",
+    "expected_output": "Point(x=2, y=3)",
+    "complexity": "Object creation: O(1) for two scalar fields; auxiliary space: O(1).",
+    "key_points": [
+      "Dataclasses reduce boilerplate for record-shaped objects.",
+      "`frozen=True` disallows ordinary attribute assignment."
+    ]
+  },
+  {
+    "id": "python-sorted-key",
+    "category": "python",
+    "title": "Sort by a computed key",
+    "explanation": "`sorted` returns a new list and accepts a key function. The original list stays unchanged, making the data flow explicit.",
+    "code_language": "python",
+    "code": "words = [\"pear\", \"fig\", \"banana\"]\nprint(sorted(words, key=lambda word: (len(word), word)))\nprint(words)",
+    "expected_output": "['fig', 'pear', 'banana']\n['pear', 'fig', 'banana']",
+    "complexity": "Time: O(n log n) comparisons; auxiliary space: O(n) for the result.",
+    "key_points": [
+      "Use key functions to sort by derived properties.",
+      "`sorted` does not mutate the input."
+    ]
+  },
+  {
+    "id": "python-context-manager",
+    "category": "python",
+    "title": "Use a context manager for cleanup",
+    "explanation": "Context managers enter and exit a resource scope. The resource is cleaned up even if an exception occurs inside the `with` block.",
+    "code_language": "python",
+    "code": "from contextlib import nullcontext\n\nwith nullcontext(\"resource ready\") as resource:\n    print(resource)",
+    "expected_output": "resource ready",
+    "complexity": "Time and auxiliary space: O(1) for this demonstration.",
+    "key_points": [
+      "Use `with` for files, locks, and managed resources.",
+      "Cleanup belongs to the context manager exit method."
+    ]
+  },
+  {
+    "id": "dsa-binary-search",
+    "category": "dsa",
+    "title": "Binary search on sorted data",
+    "explanation": "Binary search repeatedly halves a sorted search interval. It returns an index if the target is present, otherwise `-1`. The sorted-input precondition is essential.",
+    "code_language": "python",
+    "code": "def binary_search(values, target):\n    left, right = 0, len(values) - 1\n    while left <= right:\n        middle = (left + right) // 2\n        if values[middle] == target:\n            return middle\n        if values[middle] < target:\n            left = middle + 1\n        else:\n            right = middle - 1\n    return -1\n\nprint(binary_search([2, 4, 7, 11], 7))",
+    "expected_output": "2",
+    "complexity": "Time: O(log n); auxiliary space: O(1).",
+    "key_points": [
+      "Binary search requires a sorted sequence.",
+      "Move one boundary after every unsuccessful comparison."
+    ]
+  },
+  {
+    "id": "dsa-two-sum",
+    "category": "dsa",
+    "title": "Two Sum with a hash map",
+    "explanation": "Store already-seen numbers and their indices. For each number, look for the complement needed to reach the target, yielding a linear-time solution.",
+    "code_language": "python",
+    "code": "def two_sum(numbers, target):\n    seen = {}\n    for i, number in enumerate(numbers):\n        if target - number in seen:\n            return (seen[target - number], i)\n        seen[number] = i\n    return None\n\nprint(two_sum([2, 7, 11, 15], 9))",
+    "expected_output": "(0, 1)",
+    "complexity": "Average time: O(n); auxiliary space: O(n).",
+    "key_points": [
+      "Look up complements before inserting the current element.",
+      "A dictionary trades extra memory for fast lookup."
+    ]
+  },
+  {
+    "id": "dsa-valid-parentheses",
+    "category": "dsa",
+    "title": "Validate parentheses with a stack",
+    "explanation": "Push opening brackets and match each closing bracket against the most recent opener. A stack naturally represents nested structure.",
+    "code_language": "python",
+    "code": "def valid(text):\n    opening = {\"(\", \"[\", \"{\"}\n    pairs = {')': '(', ']': '[', '}': '{'}\n    stack = []\n    for char in text:\n        if char in opening:\n            stack.append(char)\n        elif char in pairs:\n            if not stack or stack.pop() != pairs[char]:\n                return False\n    return not stack\n\nprint(valid(\"([])\"))\nprint(valid(\"([)]\"))",
+    "expected_output": "True\nFalse",
+    "complexity": "Time: O(n); auxiliary space: O(n) in the worst case.",
+    "key_points": [
+      "LIFO order is the key property of stacks.",
+      "Reject early when a closing bracket has no matching opener."
+    ]
+  },
+  {
+    "id": "dsa-sliding-window",
+    "category": "dsa",
+    "title": "Fixed-size sliding window sum",
+    "explanation": "A sliding window updates the running sum by removing the outgoing element and adding the incoming element. It avoids recomputing every subarray sum from scratch.",
+    "code_language": "python",
+    "code": "def max_window_sum(values, k):\n    if not 1 <= k <= len(values):\n        raise ValueError(\"invalid window\")\n    current = sum(values[:k])\n    best = current\n    for right in range(k, len(values)):\n        current += values[right] - values[right - k]\n        best = max(best, current)\n    return best\n\nprint(max_window_sum([1, 4, 2, 7, 3], 3))",
+    "expected_output": "13",
+    "complexity": "Time: O(n); auxiliary space: O(1) beyond the input.",
+    "key_points": [
+      "Keep a running aggregate for overlapping windows.",
+      "Validate window bounds before indexing."
+    ]
+  },
+  {
+    "id": "dsa-prefix-sums",
+    "category": "dsa",
+    "title": "Answer range sums with prefix sums",
+    "explanation": "A prefix-sum array stores cumulative totals, so a range query from index `left` through `right` becomes a subtraction of two prefix values.",
+    "code_language": "python",
+    "code": "values = [3, 1, 4, 2]\nprefix = [0]\nfor value in values:\n    prefix.append(prefix[-1] + value)\nleft, right = 1, 3\nprint(prefix[right + 1] - prefix[left])",
+    "expected_output": "7",
+    "complexity": "Preprocessing: O(n) time/space; each range-sum query: O(1).",
+    "key_points": [
+      "A leading zero simplifies the subtraction formula.",
+      "Prefix sums are useful when many range queries reuse one array."
+    ]
+  },
+  {
+    "id": "dsa-breadth-first-search",
+    "category": "dsa",
+    "title": "Shortest paths in an unweighted graph with BFS",
+    "explanation": "Breadth-first search visits vertices in increasing distance from a start vertex. The first time a vertex is reached gives its shortest unweighted path length.",
+    "code_language": "python",
+    "code": "from collections import deque\n\ngraph = {\"A\": [\"B\", \"C\"], \"B\": [\"D\"], \"C\": [\"D\"], \"D\": []}\ndistance = {\"A\": 0}\nqueue = deque([\"A\"])\nwhile queue:\n    node = queue.popleft()\n    for neighbor in graph[node]:\n        if neighbor not in distance:\n            distance[neighbor] = distance[node] + 1\n            queue.append(neighbor)\nprint(distance[\"D\"])",
+    "expected_output": "2",
+    "complexity": "Time: O(V + E); auxiliary space: O(V).",
+    "key_points": [
+      "A queue explores the graph level by level.",
+      "Use BFS for unweighted shortest paths."
+    ]
+  },
+  {
+    "id": "dsa-merge-intervals",
+    "category": "dsa",
+    "title": "Merge overlapping intervals",
+    "explanation": "Sort intervals by start position and extend the most recent merged interval whenever two ranges overlap. Sorting dominates the runtime.",
+    "code_language": "python",
+    "code": "intervals = [[1, 3], [2, 6], [8, 10]]\nmerged = []\nfor start, end in sorted(intervals):\n    if merged and start <= merged[-1][1]:\n        merged[-1][1] = max(merged[-1][1], end)\n    else:\n        merged.append([start, end])\nprint(merged)",
+    "expected_output": "[[1, 6], [8, 10]]",
+    "complexity": "Time: O(n log n); auxiliary space: O(n) for results.",
+    "key_points": [
+      "Sort intervals before merging.",
+      "Overlap is determined against the latest merged end."
+    ]
+  },
+  {
+    "id": "dsa-min-heap",
+    "category": "dsa",
+    "title": "Retrieve the smallest values using a heap",
+    "explanation": "A min-heap keeps the minimum element accessible at the root. Python `heapq` supports efficient push/pop operations without sorting the entire collection repeatedly.",
+    "code_language": "python",
+    "code": "import heapq\n\nheap = []\nfor number in [5, 2, 8, 1]:\n    heapq.heappush(heap, number)\nprint(heapq.heappop(heap))\nprint(heapq.heappop(heap))",
+    "expected_output": "1\n2",
+    "complexity": "Push/pop: O(log n) each; auxiliary space: O(n) for the heap.",
+    "key_points": [
+      "A heap is not the same as a fully sorted list.",
+      "Heaps are useful for priority queues and top-k problems."
+    ]
+  },
+  {
+    "id": "dsa-kadane",
+    "category": "dsa",
+    "title": "Maximum subarray sum with Kadane’s algorithm",
+    "explanation": "Track the best subarray ending at the current element. Either extend the previous subarray or start a new one at the current element.",
+    "code_language": "python",
+    "code": "def max_subarray(numbers):\n    if not numbers:\n        raise ValueError(\"empty input\")\n    current = best = numbers[0]\n    for number in numbers[1:]:\n        current = max(number, current + number)\n        best = max(best, current)\n    return best\n\nprint(max_subarray([-2, 1, -3, 4, -1, 2, 1]))",
+    "expected_output": "6",
+    "complexity": "Time: O(n); auxiliary space: O(1).",
+    "key_points": [
+      "The optimal subarray ending here has a simple recurrence.",
+      "Initialize from the first value to handle all-negative arrays."
+    ]
+  },
+  {
+    "id": "dsa-linked-list-reversal",
+    "category": "dsa",
+    "title": "Reverse a singly linked list iteratively",
+    "explanation": "Reverse each next pointer using three references: previous, current, and next. The algorithm changes links in place and needs no extra collection.",
+    "code_language": "python",
+    "code": "class Node:\n    def __init__(self, value, next_node=None):\n        self.value = value\n        self.next = next_node\n\ndef reverse(head):\n    previous = None\n    while head:\n        following = head.next\n        head.next = previous\n        previous, head = head, following\n    return previous\n\nhead = Node(1, Node(2, Node(3)))\nhead = reverse(head)\nwhile head:\n    print(head.value, end=\" \")\n    head = head.next\nprint()",
+    "expected_output": "3 2 1",
+    "complexity": "Time: O(n); auxiliary space: O(1).",
+    "key_points": [
+      "Save the next node before changing a link.",
+      "Iterative reversal uses constant extra memory."
+    ]
+  },
+  {
+    "id": "javascript-map",
+    "category": "javascript",
+    "title": "Transform arrays with map",
+    "explanation": "`Array.prototype.map` returns a new array with one transformed result per input. It does not change the original array.",
+    "code_language": "javascript",
+    "code": "const values = [1, 2, 3];\nconst doubled = values.map(value => value * 2);\nconsole.log(doubled);",
+    "expected_output": "[ 2, 4, 6 ]",
+    "complexity": "Time: O(n); auxiliary space: O(n) for the new array.",
+    "key_points": [
+      "Use map for one-to-one transformations.",
+      "Avoid side effects in the mapping callback."
+    ]
+  },
+  {
+    "id": "javascript-filter",
+    "category": "javascript",
+    "title": "Keep matching elements with filter",
+    "explanation": "`filter` builds a new array containing the elements whose callback returns a truthy result.",
+    "code_language": "javascript",
+    "code": "const numbers = [1, 2, 3, 4, 5];\nconsole.log(numbers.filter(n => n % 2 === 0));",
+    "expected_output": "[ 2, 4 ]",
+    "complexity": "Time: O(n); auxiliary space: O(k) for k matches.",
+    "key_points": [
+      "Use filter to select a subset.",
+      "The input array is not mutated."
+    ]
+  },
+  {
+    "id": "javascript-reduce",
+    "category": "javascript",
+    "title": "Aggregate values with reduce",
+    "explanation": "`reduce` carries an accumulator through an array. Supply an initial value to define the result of an empty array.",
+    "code_language": "javascript",
+    "code": "const prices = [10, 20, 5];\nconsole.log(prices.reduce((sum, price) => sum + price, 0));",
+    "expected_output": "35",
+    "complexity": "Time: O(n); auxiliary space: O(1) for scalar aggregation.",
+    "key_points": [
+      "Provide an initial accumulator value.",
+      "Reduce is for combining items into one result."
+    ]
+  },
+  {
+    "id": "javascript-destructuring",
+    "category": "javascript",
+    "title": "Extract object fields with destructuring",
+    "explanation": "Object destructuring binds selected properties to local variables. A default value applies when the property is `undefined`.",
+    "code_language": "javascript",
+    "code": "const user = { name: \"Ada\" };\nconst { name, role = \"developer\" } = user;\nconsole.log(`${name}: ${role}`);",
+    "expected_output": "Ada: developer",
+    "complexity": "Time and auxiliary space: O(1) for a fixed number of fields.",
+    "key_points": [
+      "Destructuring improves readability for known properties.",
+      "Defaults apply to undefined, not null."
+    ]
+  },
+  {
+    "id": "javascript-optional-chaining",
+    "category": "javascript",
+    "title": "Read nested fields with optional chaining",
+    "explanation": "Optional chaining returns `undefined` when an intermediate value is nullish instead of throwing. Combine it with `??` when a fallback is appropriate.",
+    "code_language": "javascript",
+    "code": "const user = { profile: { city: \"Pune\" } };\nconsole.log(user.profile?.city ?? \"Unknown\");\nconsole.log(user.contact?.phone ?? \"Not set\");",
+    "expected_output": "Pune\nNot set",
+    "complexity": "Time and auxiliary space: O(1) for fixed-depth access.",
+    "key_points": [
+      "`?.` guards only against null and undefined.",
+      "`??` preserves legitimate zero/false values."
+    ]
+  },
+  {
+    "id": "javascript-set-uniqueness",
+    "category": "javascript",
+    "title": "Remove duplicate values with Set",
+    "explanation": "A `Set` stores unique values. Converting it back to an array preserves the first-seen order of primitive values.",
+    "code_language": "javascript",
+    "code": "const values = [3, 1, 3, 2, 1];\nconsole.log([...new Set(values)]);",
+    "expected_output": "[ 3, 1, 2 ]",
+    "complexity": "Expected time: O(n); auxiliary space: O(k) for k unique values.",
+    "key_points": [
+      "Set membership is typically fast.",
+      "Objects are compared by identity, not deep equality."
+    ]
+  },
+  {
+    "id": "javascript-promise-all",
+    "category": "javascript",
+    "title": "Run independent async tasks concurrently",
+    "explanation": "`Promise.all` waits for all promises and keeps results in input order. It rejects when any input promise rejects.",
+    "code_language": "javascript",
+    "code": "async function main() {\n  const results = await Promise.all([\n    Promise.resolve(\"users\"),\n    Promise.resolve(\"orders\")\n  ]);\n  console.log(results.join(\", \"));\n}\nmain().catch(console.error);",
+    "expected_output": "users, orders",
+    "complexity": "Orchestration: O(n) bookkeeping plus the slowest task duration; O(n) result space.",
+    "key_points": [
+      "Independent async operations can overlap.",
+      "Handle rejection explicitly at the call site."
+    ]
+  },
+  {
+    "id": "javascript-object-entries",
+    "category": "javascript",
+    "title": "Iterate object entries",
+    "explanation": "`Object.entries` converts an object’s own enumerable string-keyed properties to `[key, value]` pairs. It is convenient for iteration.",
+    "code_language": "javascript",
+    "code": "const totals = { apples: 2, pears: 3 };\nfor (const [fruit, count] of Object.entries(totals)) {\n  console.log(`${fruit}: ${count}`);\n}",
+    "expected_output": "apples: 2\npears: 3",
+    "complexity": "Time: O(n); auxiliary space: O(n) for the entries array.",
+    "key_points": [
+      "Object.entries excludes inherited properties.",
+      "Use destructuring for the key/value pair."
+    ]
+  },
+  {
+    "id": "javascript-nullish-coalescing",
+    "category": "javascript",
+    "title": "Choose defaults with nullish coalescing",
+    "explanation": "The `??` operator uses the right-hand value only for `null` or `undefined`. Unlike `||`, it does not replace valid values such as `0` or an empty string.",
+    "code_language": "javascript",
+    "code": "const retries = 0;\nconsole.log(retries ?? 3);\nconsole.log(retries || 3);",
+    "expected_output": "0\n3",
+    "complexity": "Time and auxiliary space: O(1).",
+    "key_points": [
+      "Use ?? when zero is a meaningful value.",
+      "Do not confuse nullish and falsy checks."
+    ]
+  },
+  {
+    "id": "javascript-sort-numeric",
+    "category": "javascript",
+    "title": "Sort numbers with a comparator",
+    "explanation": "JavaScript sorts as strings by default. A numeric comparison callback produces ascending numeric order.",
+    "code_language": "javascript",
+    "code": "const values = [10, 2, 30];\nconsole.log([...values].sort((a, b) => a - b));\nconsole.log(values);",
+    "expected_output": "[ 2, 10, 30 ]\n[ 10, 2, 30 ]",
+    "complexity": "Typically O(n log n) time; O(n) extra space here for the copy.",
+    "key_points": [
+      "Pass a comparator for numeric sorting.",
+      "Copy the array to avoid mutating the original."
+    ]
+  },
+  {
+    "id": "sql-where-filter",
+    "category": "sql",
+    "title": "Filter database rows with WHERE",
+    "explanation": "Use `WHERE` to restrict rows before selecting the final result. Text values are written in single quotes. In application code, bind untrusted values as parameters.",
+    "code_language": "sql",
+    "code": "CREATE TABLE products (name TEXT, price INTEGER);\nINSERT INTO products VALUES ('Pen', 10), ('Book', 80);\nSELECT name FROM products WHERE price >= 50;",
+    "expected_output": "Book",
+    "complexity": "Query cost: O(n) without an index; result space depends on matching rows.",
+    "key_points": [
+      "WHERE filters individual rows.",
+      "Use bound parameters for user-supplied values."
+    ]
+  },
+  {
+    "id": "sql-order-by",
+    "category": "sql",
+    "title": "Sort query results with ORDER BY",
+    "explanation": "An `ORDER BY` clause makes result ordering explicit rather than relying on physical insertion order.",
+    "code_language": "sql",
+    "code": "CREATE TABLE scores (name TEXT, points INTEGER);\nINSERT INTO scores VALUES ('Ada', 90), ('Lin', 98);\nSELECT name FROM scores ORDER BY points DESC;",
+    "expected_output": "Lin\nAda",
+    "complexity": "Typical sort cost: O(n log n) time and O(n) temporary space without an ordered index.",
+    "key_points": [
+      "Use DESC for descending order.",
+      "Without ORDER BY, output row order is not guaranteed."
+    ]
+  },
+  {
+    "id": "sql-group-by",
+    "category": "sql",
+    "title": "Group rows and count records",
+    "explanation": "`GROUP BY` aggregates rows with the same key; `COUNT(*)` counts rows in each group, including rows with null values.",
+    "code_language": "sql",
+    "code": "CREATE TABLE orders (region TEXT);\nINSERT INTO orders VALUES ('West'), ('East'), ('West');\nSELECT region, COUNT(*) FROM orders GROUP BY region ORDER BY region;",
+    "expected_output": "East | 1\nWest | 2",
+    "complexity": "Usually O(n) for hash grouping or O(n log n) for sorting, implementation dependent.",
+    "key_points": [
+      "GROUP BY produces one row per group.",
+      "COUNT(*) includes all rows in the group."
+    ]
+  },
+  {
+    "id": "sql-inner-join",
+    "category": "sql",
+    "title": "Join related tables with INNER JOIN",
+    "explanation": "An inner join returns pairs of rows whose join condition matches. Qualify common field names using table aliases.",
+    "code_language": "sql",
+    "code": "CREATE TABLE users (id INTEGER, name TEXT);\nCREATE TABLE tasks (user_id INTEGER, title TEXT);\nINSERT INTO users VALUES (1, 'Ada'), (2, 'Lin');\nINSERT INTO tasks VALUES (1, 'Write tests');\nSELECT u.name, t.title FROM users u\nINNER JOIN tasks t ON u.id = t.user_id;",
+    "expected_output": "Ada | Write tests",
+    "complexity": "Join performance depends on indexes and chosen plan; indexed lookup often helps.",
+    "key_points": [
+      "INNER JOIN discards unmatched rows.",
+      "Join on actual key relationships."
+    ]
+  },
+  {
+    "id": "sql-left-join",
+    "category": "sql",
+    "title": "Preserve unmatched rows with LEFT JOIN",
+    "explanation": "A left join returns every left-side row even when no matching right-side row exists. Right-side columns are then `NULL`.",
+    "code_language": "sql",
+    "code": "CREATE TABLE users (id INTEGER, name TEXT);\nCREATE TABLE tasks (user_id INTEGER);\nINSERT INTO users VALUES (1, 'Ada'), (2, 'Lin');\nINSERT INTO tasks VALUES (1);\nSELECT u.name, t.user_id FROM users u\nLEFT JOIN tasks t ON u.id = t.user_id ORDER BY u.id;",
+    "expected_output": "Ada | 1\nLin | NULL",
+    "complexity": "Join complexity depends on indexing and query plan.",
+    "key_points": [
+      "LEFT JOIN preserves left-side rows.",
+      "NULL indicates absent right-side data in the example."
+    ]
+  },
+  {
+    "id": "sql-having",
+    "category": "sql",
+    "title": "Filter aggregated groups with HAVING",
+    "explanation": "`HAVING` filters aggregate groups after `GROUP BY`, while `WHERE` filters input rows before grouping.",
+    "code_language": "sql",
+    "code": "CREATE TABLE events (team TEXT);\nINSERT INTO events VALUES ('Red'), ('Blue'), ('Red');\nSELECT team, COUNT(*) AS total FROM events\nGROUP BY team HAVING COUNT(*) >= 2;",
+    "expected_output": "Red | 2",
+    "complexity": "Grouping usually processes O(n) rows; implementation and indexes affect runtime.",
+    "key_points": [
+      "WHERE runs before aggregation.",
+      "HAVING can test aggregate expressions."
+    ]
+  },
+  {
+    "id": "sql-distinct",
+    "category": "sql",
+    "title": "Return unique values with DISTINCT",
+    "explanation": "`SELECT DISTINCT` eliminates duplicate result rows. Its cost depends on the engine’s sorting or hashing strategy.",
+    "code_language": "sql",
+    "code": "CREATE TABLE visits (city TEXT);\nINSERT INTO visits VALUES ('Mumbai'), ('Pune'), ('Mumbai');\nSELECT DISTINCT city FROM visits ORDER BY city;",
+    "expected_output": "Mumbai\nPune",
+    "complexity": "Typical cost O(n) expected with hashing, or O(n log n) via sorting.",
+    "key_points": [
+      "DISTINCT applies to the whole selected row.",
+      "Avoid DISTINCT when duplicates indicate a broken join."
+    ]
+  },
+  {
+    "id": "sql-coalesce",
+    "category": "sql",
+    "title": "Supply a fallback for NULL",
+    "explanation": "`COALESCE` returns the first non-NULL expression. It is useful for displaying missing values without changing the stored data.",
+    "code_language": "sql",
+    "code": "CREATE TABLE contacts (name TEXT, phone TEXT);\nINSERT INTO contacts VALUES ('Ada', NULL);\nSELECT name, COALESCE(phone, 'Unknown') FROM contacts;",
+    "expected_output": "Ada | Unknown",
+    "complexity": "Time: O(n) across n scanned rows without an index; O(1) per row evaluation.",
+    "key_points": [
+      "NULL is different from an empty string.",
+      "COALESCE picks the first non-NULL argument."
+    ]
+  },
+  {
+    "id": "sql-case-when",
+    "category": "sql",
+    "title": "Derive labels with CASE expressions",
+    "explanation": "A `CASE` expression computes a value based on conditions, allowing readable business labels in query results.",
+    "code_language": "sql",
+    "code": "CREATE TABLE exams (name TEXT, score INTEGER);\nINSERT INTO exams VALUES ('Ada', 75), ('Lin', 39);\nSELECT name, CASE WHEN score >= 40 THEN 'Pass' ELSE 'Fail' END\nFROM exams ORDER BY name;",
+    "expected_output": "Ada | Pass\nLin | Fail",
+    "complexity": "Time: O(n) for n scanned rows; O(1) expression work per row.",
+    "key_points": [
+      "CASE is SQL’s conditional expression.",
+      "Include ELSE for an intentional default."
+    ]
+  },
+  {
+    "id": "sql-cte",
+    "category": "sql",
+    "title": "Organize a query with a CTE",
+    "explanation": "A common table expression declared with `WITH` names an intermediate query for readability. Depending on the database and optimizer, it may be inlined or materialized.",
+    "code_language": "sql",
+    "code": "CREATE TABLE sales (amount INTEGER);\nINSERT INTO sales VALUES (20), (40), (60);\nWITH large_sales AS (\n  SELECT amount FROM sales WHERE amount >= 40\n)\nSELECT SUM(amount) FROM large_sales;",
+    "expected_output": "100",
+    "complexity": "Time: O(n) for a table scan; space depends on optimizer/materialization.",
+    "key_points": [
+      "CTEs help structure multi-step SQL.",
+      "Do not assume a CTE always materializes."
+    ]
+  },
+  {
+    "id": "git-status",
+    "category": "git",
+    "title": "Inspect working-tree changes",
+    "explanation": "`git status --short` shows concise status codes for staged, unstaged, and untracked paths. Review changes before staging or committing.",
+    "code_language": "bash",
+    "code": "git status --short",
+    "expected_output": "Example: ?? notes.md (untracked file)",
+    "complexity": "Command cost depends on repository file count and filesystem state.",
+    "key_points": [
+      "Inspect the worktree before staging.",
+      "Untracked files are marked with ?? in short status."
+    ]
+  },
+  {
+    "id": "git-add-patch",
+    "category": "git",
+    "title": "Stage only selected changes",
+    "explanation": "`git add -p` reviews each change hunk and lets you choose which hunks to stage. This helps keep commits focused.",
+    "code_language": "bash",
+    "code": "git add -p\n# Review the patch and answer y/n for each hunk.",
+    "expected_output": "Usage: Stage one logical fix without staging unrelated edits.",
+    "complexity": "Interactive diff scanning depends on the number and size of changes.",
+    "key_points": [
+      "Small focused commits are easier to review.",
+      "Staging does not create a commit by itself."
+    ]
+  },
+  {
+    "id": "git-log-one-line",
+    "category": "git",
+    "title": "Read a concise commit history",
+    "explanation": "`git log --oneline --max-count=5` summarizes recent commits using abbreviated hashes and subject lines.",
+    "code_language": "bash",
+    "code": "git log --oneline --max-count=5",
+    "expected_output": "Example: a1b2c3d docs: explain binary search",
+    "complexity": "Time: O(k) to display k requested commits, excluding object access overhead.",
+    "key_points": [
+      "Commit subjects should describe actual changes.",
+      "Use --max-count to limit history output."
+    ]
+  },
+  {
+    "id": "git-diff-cached",
+    "category": "git",
+    "title": "Review staged changes before commit",
+    "explanation": "`git diff --cached` shows changes in the index compared with the last commit. This is the exact patch you are preparing to commit.",
+    "code_language": "bash",
+    "code": "git diff --cached",
+    "expected_output": "Usage: Review what would be included in the next commit.",
+    "complexity": "Diff cost scales with the changed lines.",
+    "key_points": [
+      "Review staged content to catch accidental files.",
+      "The index and working tree can differ."
+    ]
+  },
+  {
+    "id": "git-restore-file",
+    "category": "git",
+    "title": "Discard an unstaged change safely",
+    "explanation": "`git restore --worktree` restores a tracked file from the index. It discards unstaged edits in that file; check the diff first because this is destructive.",
+    "code_language": "bash",
+    "code": "git diff -- README.md\n# Only after confirming you want to discard the unstaged edits:\ngit restore --worktree -- README.md",
+    "expected_output": "Usage: README.md matches its staged version afterward.",
+    "complexity": "Time is proportional to restored file content.",
+    "key_points": [
+      "Use explicit paths rather than broad destructive commands.",
+      "Untracked files are not removed by this command."
+    ]
+  },
+  {
+    "id": "git-branch-list",
+    "category": "git",
+    "title": "Inspect local and remote branches",
+    "explanation": "`git branch -a` lists local branches and remote-tracking refs. The default branch may be named `main`, `master`, or another value.",
+    "code_language": "bash",
+    "code": "git branch -a",
+    "expected_output": "Example: * main\n  remotes/origin/main",
+    "complexity": "Time: O(b) for b listed refs.",
+    "key_points": [
+      "Never assume every repository uses main.",
+      "A remote-tracking branch is not a local branch."
+    ]
+  },
+  {
+    "id": "git-revert",
+    "category": "git",
+    "title": "Undo a pushed change using revert",
+    "explanation": "`git revert` makes a new commit that inverses a chosen commit, preserving existing public history. It may require conflict resolution when later changes overlap.",
+    "code_language": "bash",
+    "code": "git log --oneline -3\n# After selecting the commit that needs to be undone:\ngit revert <commit-sha>",
+    "expected_output": "Usage: A new revert commit is created; earlier history remains.",
+    "complexity": "Time depends on the size of the reverted patch and conflicts.",
+    "key_points": [
+      "Prefer revert over history rewriting for shared branches.",
+      "Review the chosen SHA before running the command."
+    ]
+  },
+  {
+    "id": "git-ignore",
+    "category": "git",
+    "title": "Exclude local-only files with gitignore",
+    "explanation": "A `.gitignore` rule prevents matching untracked files from being added accidentally. It does not remove files already tracked by Git.",
+    "code_language": "gitignore",
+    "code": ".env\n.venv/\n__pycache__/",
+    "expected_output": "Usage: New matching files are ignored; already-tracked files remain tracked.",
+    "complexity": "Pattern matching cost depends on paths and patterns.",
+    "key_points": [
+      "Never commit real API keys or secrets.",
+      "Ignore rules do not retroactively untrack existing files."
+    ]
+  },
+  {
+    "id": "git-show",
+    "category": "git",
+    "title": "Inspect a specific commit",
+    "explanation": "`git show --stat HEAD` displays the latest commit metadata and a per-file change summary. Use it to verify what a commit actually changed.",
+    "code_language": "bash",
+    "code": "git show --stat HEAD",
+    "expected_output": "Usage: See the latest commit subject and the files it changed.",
+    "complexity": "Time depends on commit and tree sizes.",
+    "key_points": [
+      "HEAD refers to the currently checked-out commit.",
+      "--stat shows a summary instead of the full patch."
+    ]
+  },
+  {
+    "id": "git-remote-v",
+    "category": "git",
+    "title": "Check configured Git remotes",
+    "explanation": "`git remote -v` displays the fetch and push URLs configured for your repository. Confirm the destination before publishing changes.",
+    "code_language": "bash",
+    "code": "git remote -v",
+    "expected_output": "Example: origin  https://github.com/example/repo.git (fetch)",
+    "complexity": "Time: O(r) for r configured remotes.",
+    "key_points": [
+      "A remote name is an alias for a repository URL.",
+      "Confirm origin before pushing to a new repository."
+    ]
+  },
+  {
+    "id": "oop-encapsulation",
+    "category": "oop",
+    "title": "Protect invariants with encapsulation",
+    "explanation": "Expose a controlled method instead of changing state from arbitrary callers. Validation at the boundary preserves invariants such as nonnegative balances.",
+    "code_language": "python",
+    "code": "class Wallet:\n    def __init__(self, balance=0):\n        self._balance = balance\n\n    def deposit(self, amount):\n        if amount <= 0:\n            raise ValueError(\"amount must be positive\")\n        self._balance += amount\n\n    @property\n    def balance(self):\n        return self._balance\n\nwallet = Wallet(10)\nwallet.deposit(5)\nprint(wallet.balance)",
+    "expected_output": "15",
+    "complexity": "Deposit: O(1) time and O(1) additional space.",
+    "key_points": [
+      "Encapsulation centralizes data validation.",
+      "Underscore attributes are a convention, not strict access control."
+    ]
+  },
+  {
+    "id": "oop-inheritance",
+    "category": "oop",
+    "title": "Reuse and specialize behavior with inheritance",
+    "explanation": "A subclass can override a method from its parent class. Polymorphic callers interact with the common method interface.",
+    "code_language": "python",
+    "code": "class Animal:\n    def speak(self):\n        return \"some sound\"\n\nclass Dog(Animal):\n    def speak(self):\n        return \"woof\"\n\nprint(Dog().speak())",
+    "expected_output": "woof",
+    "complexity": "Method call: O(1) for this example; O(1) additional space.",
+    "key_points": [
+      "Overriding changes behavior in a subclass.",
+      "Prefer composition over deep inheritance trees."
+    ]
+  },
+  {
+    "id": "oop-composition",
+    "category": "oop",
+    "title": "Build behavior with composition",
+    "explanation": "Composition gives one object a reference to another object rather than making it a subtype. It keeps responsibilities separate and allows implementations to be swapped.",
+    "code_language": "python",
+    "code": "class Formatter:\n    def format(self, message):\n        return message.upper()\n\nclass Notifier:\n    def __init__(self, formatter):\n        self.formatter = formatter\n\n    def send(self, message):\n        return self.formatter.format(message)\n\nprint(Notifier(Formatter()).send(\"hello\"))",
+    "expected_output": "HELLO",
+    "complexity": "Time: O(n) for n-character uppercase conversion; O(n) output space.",
+    "key_points": [
+      "Composition expresses a has-a relationship.",
+      "Dependency injection makes components easier to test."
+    ]
+  },
+  {
+    "id": "oop-class-v-instance",
+    "category": "oop",
+    "title": "Understand class and instance attributes",
+    "explanation": "Class attributes are shared across instances unless shadowed. Instance attributes live on each object and are appropriate for per-object state.",
+    "code_language": "python",
+    "code": "class Counter:\n    created = 0\n\n    def __init__(self):\n        Counter.created += 1\n        self.value = 0\n\na, b = Counter(), Counter()\na.value = 7\nprint(Counter.created, b.value)",
+    "expected_output": "2 0",
+    "complexity": "Construction and attribute access: O(1) each.",
+    "key_points": [
+      "Instance attributes isolate object state.",
+      "Mutable class attributes can introduce unwanted sharing."
+    ]
+  },
+  {
+    "id": "oop-abstract-base-class",
+    "category": "oop",
+    "title": "Define interfaces with abstract base classes",
+    "explanation": "Abstract base classes specify required methods. Python prevents instantiating a subclass that has not implemented all abstract members.",
+    "code_language": "python",
+    "code": "from abc import ABC, abstractmethod\n\nclass Shape(ABC):\n    @abstractmethod\n    def area(self):\n        pass\n\nclass Square(Shape):\n    def __init__(self, side):\n        self.side = side\n\n    def area(self):\n        return self.side ** 2\n\nprint(Square(4).area())",
+    "expected_output": "16",
+    "complexity": "Area computation: O(1) time and space.",
+    "key_points": [
+      "An ABC states a shared contract.",
+      "The subclass must implement each abstract method."
+    ]
+  },
+  {
+    "id": "oop-property",
+    "category": "oop",
+    "title": "Validate data with properties",
+    "explanation": "A property exposes an attribute-like API while keeping validation logic in one place. This allows callers to use `item.price` safely.",
+    "code_language": "python",
+    "code": "class Product:\n    def __init__(self, price):\n        self.price = price\n\n    @property\n    def price(self):\n        return self._price\n\n    @price.setter\n    def price(self, value):\n        if value < 0:\n            raise ValueError(\"negative price\")\n        self._price = value\n\nprint(Product(25).price)",
+    "expected_output": "25",
+    "complexity": "Getter and setter: O(1) time and auxiliary space.",
+    "key_points": [
+      "Properties help preserve invariants.",
+      "Validate inputs at the public API boundary."
+    ]
+  },
+  {
+    "id": "oop-classmethod",
+    "category": "oop",
+    "title": "Use class methods for alternative constructors",
+    "explanation": "A `classmethod` receives the class object as `cls`. Alternative constructors can parse or normalize external input before creating an instance.",
+    "code_language": "python",
+    "code": "class Temperature:\n    def __init__(self, celsius):\n        self.celsius = celsius\n\n    @classmethod\n    def from_fahrenheit(cls, fahrenheit):\n        return cls((fahrenheit - 32) * 5 / 9)\n\nprint(round(Temperature.from_fahrenheit(212).celsius))",
+    "expected_output": "100",
+    "complexity": "Conversion and construction: O(1) time/space.",
+    "key_points": [
+      "Class methods can construct subclasses through cls.",
+      "An alternative constructor centralizes conversion logic."
+    ]
+  },
+  {
+    "id": "oop-staticmethod",
+    "category": "oop",
+    "title": "Keep stateless utilities close to their domain",
+    "explanation": "A `staticmethod` is a function stored on a class without receiving `self` or `cls`. Use it only when grouping it with the class improves clarity.",
+    "code_language": "python",
+    "code": "class Validator:\n    @staticmethod\n    def is_valid_port(value):\n        return isinstance(value, int) and 1 <= value <= 65535\n\nprint(Validator.is_valid_port(443))\nprint(Validator.is_valid_port(70000))",
+    "expected_output": "True\nFalse",
+    "complexity": "Validation: O(1) time and space.",
+    "key_points": [
+      "Static methods do not depend on instance state.",
+      "A plain module function may be simpler for unrelated utilities."
+    ]
+  },
+  {
+    "id": "oop-polymorphism",
+    "category": "oop",
+    "title": "Use a shared interface for different implementations",
+    "explanation": "Polymorphism allows different objects to be used through a common operation. Python supports duck typing when objects provide the method the caller needs.",
+    "code_language": "python",
+    "code": "class JsonFormatter:\n    def format(self):\n        return '{\"ok\": true}'\n\nclass TextFormatter:\n    def format(self):\n        return \"ok\"\n\nfor formatter in (JsonFormatter(), TextFormatter()):\n    print(formatter.format())",
+    "expected_output": "{\"ok\": true}\nok",
+    "complexity": "Dispatch: O(1) overhead plus the invoked implementation.",
+    "key_points": [
+      "Callers depend on behavior rather than a concrete class.",
+      "Prefer small well-defined interfaces."
+    ]
+  },
+  {
+    "id": "oop-repr",
+    "category": "oop",
+    "title": "Make objects easier to debug with repr",
+    "explanation": "`__repr__` defines a useful developer-facing representation. A good repr includes enough state to understand an object in logs and a debugger.",
+    "code_language": "python",
+    "code": "class Task:\n    def __init__(self, title):\n        self.title = title\n\n    def __repr__(self):\n        return f\"Task(title={self.title!r})\"\n\nprint(Task(\"Review PR\"))",
+    "expected_output": "Task(title='Review PR')",
+    "complexity": "Time: O(n) for an n-character title; O(n) result space.",
+    "key_points": [
+      "Use !r for escaped representations of contained strings.",
+      "Do not include secrets in repr output."
+    ]
+  },
+  {
+    "id": "backend-env-vars",
+    "category": "backend",
+    "title": "Read configuration from environment variables",
+    "explanation": "Server applications commonly accept deployment-specific settings through the environment. Always choose safe defaults and avoid logging secrets.",
+    "code_language": "python",
+    "code": "import os\nport = int(os.environ.get(\"APP_PORT\", \"8000\"))\nprint(port)",
+    "expected_output": "8000 (when APP_PORT is not set)",
+    "complexity": "Time and auxiliary space: O(1) for a short variable.",
+    "key_points": [
+      "Keep credentials out of source control.",
+      "Validate types and ranges for deployment configuration."
+    ]
+  },
+  {
+    "id": "backend-input-validation",
+    "category": "backend",
+    "title": "Validate business inputs at the boundary",
+    "explanation": "Even when the frontend validates data, the backend must independently enforce constraints because clients can send arbitrary requests.",
+    "code_language": "python",
+    "code": "def create_username(raw):\n    if not isinstance(raw, str) or not 3 <= len(raw) <= 20:\n        raise ValueError(\"invalid username length\")\n    if not raw.isalnum():\n        raise ValueError(\"username must be alphanumeric\")\n    return raw.lower()\n\nprint(create_username(\"Ada123\"))",
+    "expected_output": "ada123",
+    "complexity": "Time: O(n) for input length n; output space: O(n).",
+    "key_points": [
+      "Do not trust client-side validation alone.",
+      "Normalize after validating the expected input type."
+    ]
+  },
+  {
+    "id": "backend-pagination",
+    "category": "backend",
+    "title": "Calculate offset-based pagination",
+    "explanation": "Offset pagination selects a bounded page from a sequence or database. Validate page size to avoid requests that consume unreasonable resources.",
+    "code_language": "python",
+    "code": "def paginate(items, page, size):\n    if page < 1 or not 1 <= size <= 100:\n        raise ValueError(\"invalid page\")\n    start = (page - 1) * size\n    return items[start:start + size]\n\nprint(paginate(list(range(10)), page=2, size=3))",
+    "expected_output": "[3, 4, 5]",
+    "complexity": "Slicing: O(k) time/space for k returned items; database OFFSET scans may cost more.",
+    "key_points": [
+      "Keep page sizes bounded.",
+      "Cursor pagination is often preferable for very deep pages."
+    ]
+  },
+  {
+    "id": "backend-cache-ttl",
+    "category": "backend",
+    "title": "Build a small time-to-live cache",
+    "explanation": "A TTL cache stores a value and an expiration deadline. Check time when reading so stale entries are not returned. Real concurrent services also need synchronization/eviction.",
+    "code_language": "python",
+    "code": "from time import monotonic\n\ncache = {}\ndef put(key, value, ttl_seconds):\n    cache[key] = (value, monotonic() + ttl_seconds)\n\ndef get(key):\n    item = cache.get(key)\n    return item[0] if item and monotonic() < item[1] else None\n\nput(\"status\", \"ok\", 10)\nprint(get(\"status\"))",
+    "expected_output": "ok",
+    "complexity": "Average cache get/put: O(1); storage: O(n) entries.",
+    "key_points": [
+      "Use a monotonic clock for elapsed-time deadlines.",
+      "TTL expiry checks do not automatically reclaim all stale entries."
+    ]
+  },
+  {
+    "id": "backend-structured-logging",
+    "category": "backend",
+    "title": "Log useful context without secrets",
+    "explanation": "Standard logging supports consistent severity levels and context. Include safe identifiers that help diagnose failures; do not print passwords or tokens.",
+    "code_language": "python",
+    "code": "import logging\nlogging.basicConfig(level=logging.INFO, format=\"%(levelname)s %(message)s\")\nlogging.info(\"processed request_id=%s status=%s\", \"req-42\", 200)",
+    "expected_output": "INFO processed request_id=req-42 status=200",
+    "complexity": "Formatting/logging cost: O(message length); output storage depends on handler.",
+    "key_points": [
+      "Use logging rather than ad-hoc print statements in services.",
+      "Redact credentials and personal data."
+    ]
+  },
+  {
+    "id": "backend-retry-backoff",
+    "category": "backend",
+    "title": "Retry transient operations with bounded backoff",
+    "explanation": "Some transient failures recover on retry. Retry only operations safe to repeat, cap attempts, and use increasing delays. For production use jitter to reduce synchronized retries.",
+    "code_language": "python",
+    "code": "def backoff_delays(attempts, base=0.5):\n    return [base * (2 ** i) for i in range(attempts)]\n\nprint(backoff_delays(4))",
+    "expected_output": "[0.5, 1.0, 2.0, 4.0]",
+    "complexity": "Time and auxiliary space: O(n) to build n delay values.",
+    "key_points": [
+      "Retry only idempotent or carefully deduplicated actions.",
+      "Bound attempts and add jitter in distributed systems."
+    ]
+  },
+  {
+    "id": "backend-idempotency-key",
+    "category": "backend",
+    "title": "Use idempotency keys to avoid duplicate writes",
+    "explanation": "Clients may retry after a timeout even if the first write succeeded. An idempotency key maps one logical request to a stored result; persistent services need atomic storage and request matching.",
+    "code_language": "python",
+    "code": "processed = {}\ndef create_order(key, item):\n    if key not in processed:\n        processed[key] = {\"order_id\": len(processed) + 1, \"item\": item}\n    return processed[key]\n\nprint(create_order(\"request-7\", \"book\"))\nprint(create_order(\"request-7\", \"book\"))",
+    "expected_output": "{'order_id': 1, 'item': 'book'}\n{'order_id': 1, 'item': 'book'}",
+    "complexity": "Average lookup/update: O(1); storage O(n) for n unique keys.",
+    "key_points": [
+      "Production deduplication must be atomic across workers.",
+      "Tie a key to the same request parameters to reject mismatched reuses."
+    ]
+  },
+  {
+    "id": "backend-dependency-injection",
+    "category": "backend",
+    "title": "Inject dependencies for testability",
+    "explanation": "Pass collaborators into a function instead of constructing network clients or databases inside it. This makes pure tests possible without external infrastructure.",
+    "code_language": "python",
+    "code": "def welcome_message(user_id, lookup_user):\n    name = lookup_user(user_id)\n    return f\"Welcome, {name}!\"\n\nfake_lookup = lambda user_id: {1: \"Ada\"}[user_id]\nprint(welcome_message(1, fake_lookup))",
+    "expected_output": "Welcome, Ada!",
+    "complexity": "Work: O(1) for this in-memory lookup; memory: O(1) beyond the fake data.",
+    "key_points": [
+      "Separate business logic from I/O.",
+      "Tests can inject deterministic in-memory fakes."
+    ]
+  },
+  {
+    "id": "backend-rate-limiting",
+    "category": "backend",
+    "title": "Apply a fixed-window rate limit",
+    "explanation": "A fixed-window limiter counts requests within time buckets. It is easy to implement but can allow bursts near window boundaries; production distributed apps need shared atomic counters.",
+    "code_language": "python",
+    "code": "def allowed(counts, user, minute, limit=3):\n    key = (user, minute)\n    counts[key] = counts.get(key, 0) + 1\n    return counts[key] <= limit\n\ncounts = {}\nprint([allowed(counts, \"u1\", 42) for _ in range(4)])",
+    "expected_output": "[True, True, True, False]",
+    "complexity": "Average per request: O(1); storage O(active user-window keys).",
+    "key_points": [
+      "Rate limiting protects shared service capacity.",
+      "A fixed window is not a strict rolling-window bound."
+    ]
+  },
+  {
+    "id": "backend-health-check",
+    "category": "backend",
+    "title": "Keep health-check logic lightweight",
+    "explanation": "A liveness signal indicates whether a process can respond. Readiness may require checking critical dependencies separately; do not run expensive work for every probe.",
+    "code_language": "python",
+    "code": "def liveness():\n    return {\"status\": \"ok\"}\n\nprint(liveness())",
+    "expected_output": "{'status': 'ok'}",
+    "complexity": "Time and auxiliary space: O(1).",
+    "key_points": [
+      "Separate liveness from readiness checks.",
+      "Use cheap probes so monitoring does not overload a service."
+    ]
+  },
+  {
+    "id": "rest-api-get",
+    "category": "rest-api",
+    "title": "Read a resource with GET",
+    "explanation": "GET asks a server for a representation of a resource. It should be safe and idempotent: fetching should not change application state.",
+    "code_language": "http",
+    "code": "GET /api/users/42 HTTP/1.1\nHost: example.com\nAccept: application/json",
+    "expected_output": "Example: HTTP 200\n{\"id\":42,\"name\":\"Ada\"}",
+    "complexity": "Depends on backend and index strategy; not an intrinsic HTTP complexity bound.",
+    "key_points": [
+      "GET retrieves a representation.",
+      "Avoid changing server state in a GET handler."
+    ]
+  },
+  {
+    "id": "rest-api-post",
+    "category": "rest-api",
+    "title": "Create a resource with POST",
+    "explanation": "POST typically submits data for processing or resource creation. Unlike PUT, POST is not inherently idempotent; retry-safe creation may need an idempotency key.",
+    "code_language": "http",
+    "code": "POST /api/tasks HTTP/1.1\nHost: example.com\nContent-Type: application/json\n\n{\"title\":\"Write tests\"}",
+    "expected_output": "Example: HTTP 201 Created\nLocation: /api/tasks/123",
+    "complexity": "Depends on validation, storage, and database operations.",
+    "key_points": [
+      "Use 201 for a successfully created resource.",
+      "Validate payloads on the server."
+    ]
+  },
+  {
+    "id": "rest-api-put",
+    "category": "rest-api",
+    "title": "Replace a resource with PUT",
+    "explanation": "PUT targets a known resource URI and generally replaces its representation. Repeating the same PUT has the same intended effect on server state.",
+    "code_language": "http",
+    "code": "PUT /api/preferences/42 HTTP/1.1\nHost: example.com\nContent-Type: application/json\n\n{\"theme\":\"dark\"}",
+    "expected_output": "Example: HTTP 200 OK or 204 No Content",
+    "complexity": "Depends on storage backend and validation.",
+    "key_points": [
+      "PUT is defined as idempotent at the HTTP method level.",
+      "Document whether omitted fields are removed or defaulted."
+    ]
+  },
+  {
+    "id": "rest-api-patch",
+    "category": "rest-api",
+    "title": "Partially update a resource with PATCH",
+    "explanation": "PATCH applies an update document to an existing resource. Whether a particular PATCH request is idempotent depends on the patch semantics.",
+    "code_language": "http",
+    "code": "PATCH /api/users/42 HTTP/1.1\nHost: example.com\nContent-Type: application/merge-patch+json\n\n{\"display_name\":\"Ada\"}",
+    "expected_output": "Example: HTTP 200 OK\n{\"id\":42,\"display_name\":\"Ada\"}",
+    "complexity": "Depends on update semantics and database operations.",
+    "key_points": [
+      "PATCH is designed for partial updates.",
+      "A field replacement patch may be idempotent; an increment operation may not be."
+    ]
+  },
+  {
+    "id": "rest-api-status-codes",
+    "category": "rest-api",
+    "title": "Choose HTTP status codes deliberately",
+    "explanation": "Use 200 for a successful response, 201 for creation, 400 for malformed requests, 401 for missing/invalid authentication, 403 for forbidden access, and 404 for missing resources.",
+    "code_language": "http",
+    "code": "HTTP/1.1 404 Not Found\nContent-Type: application/json\n\n{\"error\":\"task_not_found\"}",
+    "expected_output": "Usage: Client receives a machine-readable error and a 404 status.",
+    "complexity": "Not applicable; status code selection is protocol behavior.",
+    "key_points": [
+      "Keep application error responses consistent.",
+      "401 and 403 have different authentication/authorization meanings."
+    ]
+  },
+  {
+    "id": "rest-api-query-parameters",
+    "category": "rest-api",
+    "title": "Filter and paginate with query parameters",
+    "explanation": "Query parameters refine a resource collection request without changing the resource path. Document defaults, validation and maximum page sizes.",
+    "code_language": "http",
+    "code": "GET /api/tasks?status=open&page=2&size=20 HTTP/1.1\nHost: example.com",
+    "expected_output": "Usage: Request the second page of open tasks, 20 per page.",
+    "complexity": "Varies by pagination and database query plan.",
+    "key_points": [
+      "Parse and validate query parameters.",
+      "Place resource identifiers in paths and optional filters in queries."
+    ]
+  },
+  {
+    "id": "rest-api-authorization",
+    "category": "rest-api",
+    "title": "Separate authentication from authorization",
+    "explanation": "Authentication determines who is calling. Authorization determines whether that identity may perform a specific action. The server must enforce both where required.",
+    "code_language": "http",
+    "code": "GET /api/me HTTP/1.1\nHost: example.com\nAuthorization: Bearer <access-token>",
+    "expected_output": "Example: HTTP 401 Unauthorized for a missing or invalid token.",
+    "complexity": "Depends on token verification and authorization checks.",
+    "key_points": [
+      "Do not put bearer tokens in source code or URLs.",
+      "Enforce resource ownership or permissions on every relevant operation."
+    ]
+  },
+  {
+    "id": "rest-api-json-response",
+    "category": "rest-api",
+    "title": "Return predictable JSON structures",
+    "explanation": "Well-designed JSON APIs keep consistent field names and types. Lists can include pagination metadata to help clients navigate results.",
+    "code_language": "json",
+    "code": "{\n  \"items\": [{\"id\": 1, \"title\": \"Write tests\"}],\n  \"pagination\": {\"page\": 1, \"size\": 20, \"total\": 1}\n}",
+    "expected_output": "Usage: Client reads items and pagination.total from the response.",
+    "complexity": "JSON serialization is O(n) in the size of the response.",
+    "key_points": [
+      "Document response field types.",
+      "Avoid leaking internal database or secret fields."
+    ]
+  },
+  {
+    "id": "rest-api-etag",
+    "category": "rest-api",
+    "title": "Use ETags for conditional GET requests",
+    "explanation": "An ETag identifies a specific resource representation. A client can pass it in `If-None-Match`, letting the server return 304 if the representation is unchanged.",
+    "code_language": "http",
+    "code": "GET /api/articles/9 HTTP/1.1\nHost: example.com\nIf-None-Match: \"version-7\"",
+    "expected_output": "Example: HTTP 304 Not Modified when the stored ETag matches.",
+    "complexity": "Depends on ETag generation and lookup; no universal complexity bound.",
+    "key_points": [
+      "304 responses avoid retransmitting unchanged representations.",
+      "ETags must change when the selected representation changes."
+    ]
+  },
+  {
+    "id": "rest-api-curl",
+    "category": "rest-api",
+    "title": "Inspect API response headers with curl",
+    "explanation": "`curl -i` includes response headers while making a request. This helps diagnose status codes, content types, caching and redirects.",
+    "code_language": "bash",
+    "code": "curl --include --silent https://example.com/api/health",
+    "expected_output": "Usage: Display response headers followed by the body, if the endpoint exists.",
+    "complexity": "Time and space depend on network latency and response size.",
+    "key_points": [
+      "Inspect status and headers, not just response JSON.",
+      "Never paste production bearer tokens into public logs."
+    ]
+  },
+  {
+    "id": "software-engineering-unit-test",
+    "category": "software-engineering",
+    "title": "Write a focused unit test",
+    "explanation": "A unit test checks one small behavior and captures expectations. Tests should be deterministic, isolated and easy to understand.",
+    "code_language": "python",
+    "code": "import unittest\n\ndef add(a, b):\n    return a + b\n\nclass AdditionTests(unittest.TestCase):\n    def test_two_numbers(self):\n        self.assertEqual(add(2, 3), 5)\n\nresult = unittest.TestResult()\nAdditionTests('test_two_numbers').run(result)\nprint(result.wasSuccessful())",
+    "expected_output": "True",
+    "complexity": "Test execution: O(1) for scalar addition.",
+    "key_points": [
+      "A test should express one expected behavior.",
+      "Use assertions rather than relying on printed values."
+    ]
+  },
+  {
+    "id": "software-engineering-guard-clauses",
+    "category": "software-engineering",
+    "title": "Simplify control flow with guard clauses",
+    "explanation": "Check invalid or trivial cases early, then keep the main path unindented. This reduces nesting without changing business logic.",
+    "code_language": "python",
+    "code": "def discount(price, member):\n    if price < 0:\n        raise ValueError(\"invalid price\")\n    if not member:\n        return price\n    return price * 0.9\n\nprint(discount(100, True))",
+    "expected_output": "90.0",
+    "complexity": "Time and auxiliary space: O(1).",
+    "key_points": [
+      "Use early returns for preconditions.",
+      "Guard clauses improve readability when branches are independent."
+    ]
+  },
+  {
+    "id": "software-engineering-pure-functions",
+    "category": "software-engineering",
+    "title": "Prefer pure transformations when practical",
+    "explanation": "A pure function produces output only from its inputs and does not modify external state. Pure transformations are easy to test and reuse.",
+    "code_language": "python",
+    "code": "def add_tax(amount, rate):\n    return round(amount * (1 + rate), 2)\n\nprint(add_tax(100, 0.18))",
+    "expected_output": "118.0",
+    "complexity": "Time and auxiliary space: O(1) for scalar arithmetic.",
+    "key_points": [
+      "Pure functions are deterministic for identical inputs.",
+      "Keep I/O at system boundaries where possible."
+    ]
+  },
+  {
+    "id": "software-engineering-type-hints",
+    "category": "software-engineering",
+    "title": "Document function contracts with type hints",
+    "explanation": "Python type hints document intended input/output types and enable static analysis. They are not automatically enforced at runtime.",
+    "code_language": "python",
+    "code": "def greeting(name: str) -> str:\n    return f\"Hello, {name}!\"\n\nprint(greeting(\"Ada\"))",
+    "expected_output": "Hello, Ada!",
+    "complexity": "Time and space: O(n) for an n-character output.",
+    "key_points": [
+      "Hints improve editor support and static checking.",
+      "Validation is still required for untrusted runtime inputs."
+    ]
+  },
+  {
+    "id": "software-engineering-assert-vs-validation",
+    "category": "software-engineering",
+    "title": "Use explicit validation for external inputs",
+    "explanation": "Python `assert` is intended for internal invariants and may be disabled with optimization. Use explicit conditional checks and exceptions for untrusted values.",
+    "code_language": "python",
+    "code": "def require_positive(amount):\n    if amount <= 0:\n        raise ValueError(\"amount must be positive\")\n    return amount\n\nprint(require_positive(10))",
+    "expected_output": "10",
+    "complexity": "Time and auxiliary space: O(1).",
+    "key_points": [
+      "Do not depend on assert for security checks.",
+      "Raise precise exceptions for invalid inputs."
+    ]
+  },
+  {
+    "id": "software-engineering-single-responsibility",
+    "category": "software-engineering",
+    "title": "Keep functions focused on one responsibility",
+    "explanation": "Separating parsing from formatting lets each function change for one reason and makes it straightforward to test each step.",
+    "code_language": "python",
+    "code": "def parse_quantity(text):\n    return int(text)\n\ndef format_quantity(quantity):\n    return f\"Quantity: {quantity}\"\n\nprint(format_quantity(parse_quantity(\"4\")))",
+    "expected_output": "Quantity: 4",
+    "complexity": "Time: O(n) to parse an n-digit input; output space O(n).",
+    "key_points": [
+      "Separate validation, calculation, and formatting.",
+      "Small functions compose cleanly."
+    ]
+  },
+  {
+    "id": "software-engineering-boundary-tests",
+    "category": "software-engineering",
+    "title": "Test edge cases explicitly",
+    "explanation": "Bugs often occur at boundaries such as zero, empty inputs, and maximum allowed values. Tests should cover those cases, not only ordinary examples.",
+    "code_language": "python",
+    "code": "def capped(value, maximum):\n    return min(value, maximum)\n\nassert capped(0, 10) == 0\nassert capped(10, 10) == 10\nassert capped(11, 10) == 10\nprint(\"boundary tests passed\")",
+    "expected_output": "boundary tests passed",
+    "complexity": "Time and auxiliary space: O(1) per case.",
+    "key_points": [
+      "Include equality at boundaries.",
+      "Document assumptions about negative values and empty inputs."
+    ]
+  },
+  {
+    "id": "software-engineering-named-constants",
+    "category": "software-engineering",
+    "title": "Replace magic numbers with named constants",
+    "explanation": "Named constants make the purpose of a configuration value explicit. One change point reduces scattered, inconsistent values.",
+    "code_language": "python",
+    "code": "MAX_RETRIES = 3\n\ndef can_retry(attempt):\n    return attempt < MAX_RETRIES\n\nprint(can_retry(2), can_retry(3))",
+    "expected_output": "True False",
+    "complexity": "Time and auxiliary space: O(1).",
+    "key_points": [
+      "Name values by purpose rather than raw numbers.",
+      "Keep deployment-specific settings configurable."
+    ]
+  },
+  {
+    "id": "software-engineering-error-context",
+    "category": "software-engineering",
+    "title": "Preserve context when raising errors",
+    "explanation": "Exception chaining with `raise ... from exc` preserves the root cause while adding a higher-level message that callers can understand.",
+    "code_language": "python",
+    "code": "def parse_age(text):\n    try:\n        return int(text)\n    except ValueError as exc:\n        raise ValueError(\"age must be an integer\") from exc\n\ntry:\n    parse_age(\"none\")\nexcept ValueError as error:\n    print(str(error))",
+    "expected_output": "age must be an integer",
+    "complexity": "Time: O(n) to attempt parsing n characters; auxiliary space O(1).",
+    "key_points": [
+      "Raise exceptions with useful domain context.",
+      "Exception chaining keeps the original cause for debugging."
+    ]
+  },
+  {
+    "id": "software-engineering-deterministic-tests",
+    "category": "software-engineering",
+    "title": "Control external inputs in tests",
+    "explanation": "Instead of reading the current time inside core logic, pass a date or clock value into the function. This makes tests reliable regardless of when they run.",
+    "code_language": "python",
+    "code": "from datetime import date\n\ndef is_expired(expiry, today):\n    return today > expiry\n\nprint(is_expired(date(2026, 1, 1), date(2026, 1, 2)))",
+    "expected_output": "True",
+    "complexity": "Time and auxiliary space: O(1).",
+    "key_points": [
+      "Inject time and other nondeterministic dependencies.",
+      "Avoid tests that depend on the wall clock."
+    ]
+  },
+  {
+    "id": "interview-palindrome",
+    "category": "interview",
+    "title": "Interview: Is a string a palindrome?",
+    "explanation": "Normalize letters and digits to lowercase before comparing both ends. Clarify with the interviewer whether spaces and punctuation count.",
+    "code_language": "python",
+    "code": "def is_palindrome(text):\n    cleaned = [c.lower() for c in text if c.isalnum()]\n    return cleaned == cleaned[::-1]\n\nprint(is_palindrome(\"A man, a plan, a canal: Panama\"))",
+    "expected_output": "True",
+    "complexity": "Time: O(n); auxiliary space: O(n) for normalized characters.",
+    "key_points": [
+      "Clarify normalization requirements first.",
+      "A two-pointer approach can reduce auxiliary space."
+    ]
+  },
+  {
+    "id": "interview-anagram",
+    "category": "interview",
+    "title": "Interview: Are two strings anagrams?",
+    "explanation": "Anagrams contain equal character counts. Compare frequency maps after applying any agreed normalization rules.",
+    "code_language": "python",
+    "code": "from collections import Counter\n\ndef anagram(a, b):\n    return Counter(a.lower()) == Counter(b.lower())\n\nprint(anagram(\"listen\", \"silent\"))",
+    "expected_output": "True",
+    "complexity": "Time: O(n + m); auxiliary space: O(k) distinct characters.",
+    "key_points": [
+      "Character counts avoid sorting both strings.",
+      "Ask whether whitespace and capitalization matter."
+    ]
+  },
+  {
+    "id": "interview-fizzbuzz",
+    "category": "interview",
+    "title": "Interview: FizzBuzz and condition order",
+    "explanation": "Test divisibility by 15 before checking 3 or 5 separately. This is a common problem for checking control flow and edge cases.",
+    "code_language": "python",
+    "code": "def fizzbuzz(number):\n    if number % 15 == 0:\n        return \"FizzBuzz\"\n    if number % 3 == 0:\n        return \"Fizz\"\n    if number % 5 == 0:\n        return \"Buzz\"\n    return str(number)\n\nprint([fizzbuzz(n) for n in [3, 5, 15, 7]])",
+    "expected_output": "['Fizz', 'Buzz', 'FizzBuzz', '7']",
+    "complexity": "Each number: O(1) arithmetic; a sequence of n inputs: O(n).",
+    "key_points": [
+      "Order overlapping conditions from most specific first.",
+      "Discuss assumptions for negative and zero values."
+    ]
+  },
+  {
+    "id": "interview-first-unique",
+    "category": "interview",
+    "title": "Interview: First non-repeating character",
+    "explanation": "Count frequencies in a first pass, then scan in original order. The first character with count one is the required result.",
+    "code_language": "python",
+    "code": "from collections import Counter\n\ndef first_unique(text):\n    counts = Counter(text)\n    return next((char for char in text if counts[char] == 1), None)\n\nprint(first_unique(\"swiss\"))",
+    "expected_output": "w",
+    "complexity": "Time: O(n); auxiliary space: O(k) distinct characters.",
+    "key_points": [
+      "Frequency counting solves many string questions.",
+      "Preserve original order in the second pass."
+    ]
+  },
+  {
+    "id": "interview-missing-number",
+    "category": "interview",
+    "title": "Interview: Find a missing number in 0..n",
+    "explanation": "If the array contains exactly n distinct integers from 0 through n with one missing, subtract the observed sum from the arithmetic-series sum.",
+    "code_language": "python",
+    "code": "def missing_number(values):\n    n = len(values)\n    return n * (n + 1) // 2 - sum(values)\n\nprint(missing_number([3, 0, 1]))",
+    "expected_output": "2",
+    "complexity": "Time: O(n); auxiliary space: O(1).",
+    "key_points": [
+      "State the distinctness and range assumptions.",
+      "Python integers avoid fixed-width overflow in this version."
+    ]
+  },
+  {
+    "id": "interview-move-zeroes",
+    "category": "interview",
+    "title": "Interview: Move zeros to the end",
+    "explanation": "Preserve the relative order of nonzero elements with a write pointer; fill the rest of the array with zeroes.",
+    "code_language": "python",
+    "code": "def move_zeroes(values):\n    write = 0\n    for value in values:\n        if value != 0:\n            values[write] = value\n            write += 1\n    values[write:] = [0] * (len(values) - write)\n    return values\n\nprint(move_zeroes([0, 1, 0, 3, 12]))",
+    "expected_output": "[1, 3, 12, 0, 0]",
+    "complexity": "Time: O(n); auxiliary space O(n) here for the zero-list temporary; can be O(1) with a loop.",
+    "key_points": [
+      "Two pointers can retain stable order.",
+      "Check whether the interviewer requires strictly O(1) extra space."
+    ]
+  },
+  {
+    "id": "interview-balanced-frequency",
+    "category": "interview",
+    "title": "Interview: Most frequent element",
+    "explanation": "Count all values, then select the most frequent. Decide how ties are handled before implementing. In this example the earliest encountered maximum wins.",
+    "code_language": "python",
+    "code": "from collections import Counter\n\ndef most_frequent(values):\n    return Counter(values).most_common(1)[0][0] if values else None\n\nprint(most_frequent([2, 1, 2, 3, 2, 1]))",
+    "expected_output": "2",
+    "complexity": "Time: O(n) expected; auxiliary space: O(k) distinct values.",
+    "key_points": [
+      "Confirm tie-breaking requirements.",
+      "Handle an empty input explicitly."
+    ]
+  },
+  {
+    "id": "interview-intersection",
+    "category": "interview",
+    "title": "Interview: Unique intersection of arrays",
+    "explanation": "Convert each array to a set and intersect them. The result is unique values present in both collections. Sorting makes the demonstration deterministic.",
+    "code_language": "python",
+    "code": "def intersection(a, b):\n    return sorted(set(a) & set(b))\n\nprint(intersection([1, 2, 2, 3], [2, 3, 4]))",
+    "expected_output": "[2, 3]",
+    "complexity": "Expected O(n + m) for set construction/intersection, plus O(k log k) sorting; O(n + m) space.",
+    "key_points": [
+      "Sets remove duplicate values.",
+      "Ask whether the output order or multiplicity matters."
+    ]
+  },
+  {
+    "id": "interview-climbing-stairs",
+    "category": "interview",
+    "title": "Interview: Count ways to climb stairs",
+    "explanation": "If each move climbs one or two steps, the number of ways to reach step n equals the sum of the ways for steps n-1 and n-2. Keep only two rolling values.",
+    "code_language": "python",
+    "code": "def climb(n):\n    a, b = 1, 1\n    for _ in range(n):\n        a, b = b, a + b\n    return a\n\nprint(climb(4))",
+    "expected_output": "5",
+    "complexity": "Time: O(n); auxiliary space: O(1).",
+    "key_points": [
+      "Recognize the Fibonacci-style recurrence.",
+      "Clarify how many ways exist for zero steps."
+    ]
+  },
+  {
+    "id": "interview-merge-sorted",
+    "category": "interview",
+    "title": "Interview: Merge two sorted arrays",
+    "explanation": "Walk both sorted inputs with separate pointers and append the smaller value each time. Append any remaining suffix after one input is consumed.",
+    "code_language": "python",
+    "code": "def merge(a, b):\n    i = j = 0\n    output = []\n    while i < len(a) and j < len(b):\n        if a[i] <= b[j]:\n            output.append(a[i]); i += 1\n        else:\n            output.append(b[j]); j += 1\n    return output + a[i:] + b[j:]\n\nprint(merge([1, 3, 5], [2, 4]))",
+    "expected_output": "[1, 2, 3, 4, 5]",
+    "complexity": "Time: O(n + m); auxiliary space: O(n + m).",
+    "key_points": [
+      "Take advantage of sorted input.",
+      "Avoid repeatedly sorting the combined output."
+    ]
+  }
+]

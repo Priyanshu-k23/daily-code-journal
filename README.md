@@ -16,16 +16,16 @@ A structured collection of small, practical programming lessons, published autom
 ## Learning dashboard
 
 <!-- DAILY_ENTRIES_START -->
-**Published topics:** 0  
-**Latest update (IST):** Not published yet  
+**Published topics:** 1  
+**Latest update (IST):** 2026-11-22  
 **Reviewed library size:** 100  
-**Remaining unpublished topics:** 100
+**Remaining unpublished topics:** 99
 
 ## Categories
 
 | Category | Published | Available in library |
 | --- | ---: | ---: |
-| Python Programming | 0 | 10 |
+| Python Programming | 1 | 10 |
 | Data Structures and Algorithms | 0 | 10 |
 | JavaScript | 0 | 10 |
 | SQL and Databases | 0 | 10 |
@@ -38,7 +38,9 @@ A structured collection of small, practical programming lessons, published autom
 
 ## Published learning entries
 
-No topics have been published yet. Run the workflow manually to publish the first.
+| Date (IST) | Category | Topic |
+| --- | --- | --- |
+| 2026-11-22 | Python Programming | [List comprehensions with a filter](<python/2026-11-22--python-comprehensions.md>) |
 <!-- DAILY_ENTRIES_END -->
 
 ## Repository contents

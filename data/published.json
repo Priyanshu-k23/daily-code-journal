@@ -1,4 +1,13 @@
 {
   "schema_version": 1,
-  "entries": []
+  "entries": [
+    {
+      "topic_id": "python-comprehensions",
+      "date_ist": "2026-11-22",
+      "title": "List comprehensions with a filter",
+      "category": "python",
+      "path": "python/2026-11-22--python-comprehensions.md",
+      "generated_at_utc": "2026-11-22T07:44:53Z"
+    }
+  ]
 }

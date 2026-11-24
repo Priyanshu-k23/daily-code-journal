@@ -9,6 +9,8 @@ import unittest
 from datetime import date, timedelta
 from pathlib import Path
 
+from tests.fixtures import initialize_empty_journal
+
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 from daily_update import JournalError, read_topics, read_manifest, run, render_entry, CATEGORIES  # noqa: E402
 
@@ -21,10 +23,9 @@ class PublisherTests(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)
-        for name in ('README.md', 'content/topics.json', 'data/published.json'):
-            dest = self.root / name
-            dest.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(SOURCE / name, dest)
+        initialize_empty_journal(self.root)
+        (self.root / 'content').mkdir()
+        shutil.copy2(SOURCE / 'content/topics.json', self.root / 'content/topics.json')
         for slug, _ in CATEGORIES:
             (self.root / slug).mkdir()
 

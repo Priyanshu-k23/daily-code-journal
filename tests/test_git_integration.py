@@ -8,6 +8,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from tests.fixtures import initialize_empty_journal
+
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 from daily_update import run
 from datetime import date
@@ -26,12 +28,11 @@ class GitIntegrationTests(unittest.TestCase):
             bare, checkout = p / 'remote.git', p / 'work'
             command('git', 'init', '--bare', str(bare))
             command('git', 'clone', str(bare), str(checkout))
-            for name in ('README.md', '.gitignore', 'SETUP.md'):
+            for name in ('.gitignore', 'SETUP.md'):
                 shutil.copy2(SOURCE / name, checkout / name)
-            for d in ('data', 'content', 'scripts', 'tests', '.github'):
+            for d in ('content', 'scripts', 'tests', '.github'):
                 shutil.copytree(SOURCE / d, checkout / d)
-            for cat in ('python', 'dsa', 'javascript', 'sql', 'git', 'oop', 'backend', 'rest-api', 'software-engineering', 'interview'):
-                shutil.copytree(SOURCE / cat, checkout / cat)
+            initialize_empty_journal(checkout)
             command('git', 'checkout', '-b', 'main', cwd=checkout)
             command('git', 'config', 'user.name', 'Priyanshu-k23', cwd=checkout)
             command('git', 'config', 'user.email', '221792233+Priyanshu-k23@users.noreply.github.com', cwd=checkout)

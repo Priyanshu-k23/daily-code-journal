@@ -16,17 +16,17 @@ A structured collection of small, practical programming lessons, published autom
 ## Learning dashboard
 
 <!-- DAILY_ENTRIES_START -->
-**Published topics:** 1  
-**Latest update (IST):** 2026-11-22  
+**Published topics:** 2  
+**Latest update (IST):** 2026-11-24  
 **Reviewed library size:** 100  
-**Remaining unpublished topics:** 99
+**Remaining unpublished topics:** 98
 
 ## Categories
 
 | Category | Published | Available in library |
 | --- | ---: | ---: |
 | Python Programming | 1 | 10 |
-| Data Structures and Algorithms | 0 | 10 |
+| Data Structures and Algorithms | 1 | 10 |
 | JavaScript | 0 | 10 |
 | SQL and Databases | 0 | 10 |
 | Git and GitHub | 0 | 10 |
@@ -40,6 +40,7 @@ A structured collection of small, practical programming lessons, published autom
 
 | Date (IST) | Category | Topic |
 | --- | --- | --- |
+| 2026-11-24 | Data Structures and Algorithms | [Binary search on sorted data](<dsa/2026-11-24--dsa-binary-search.md>) |
 | 2026-11-22 | Python Programming | [List comprehensions with a filter](<python/2026-11-22--python-comprehensions.md>) |
 <!-- DAILY_ENTRIES_END -->
 

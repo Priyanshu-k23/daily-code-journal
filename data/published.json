@@ -8,6 +8,14 @@
       "category": "python",
       "path": "python/2026-11-22--python-comprehensions.md",
       "generated_at_utc": "2026-11-22T07:44:53Z"
+    },
+    {
+      "topic_id": "dsa-binary-search",
+      "date_ist": "2026-11-24",
+      "title": "Binary search on sorted data",
+      "category": "dsa",
+      "path": "dsa/2026-11-24--dsa-binary-search.md",
+      "generated_at_utc": "2026-11-24T08:44:01Z"
     }
   ]
 }

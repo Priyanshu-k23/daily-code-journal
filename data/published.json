@@ -16,6 +16,14 @@
       "category": "dsa",
       "path": "dsa/2026-11-24--dsa-binary-search.md",
       "generated_at_utc": "2026-11-24T08:44:01Z"
+    },
+    {
+      "topic_id": "javascript-map",
+      "date_ist": "2026-11-25",
+      "title": "Transform arrays with map",
+      "category": "javascript",
+      "path": "javascript/2026-11-25--javascript-map.md",
+      "generated_at_utc": "2026-11-25T04:13:24Z"
     }
   ]
 }

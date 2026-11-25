@@ -16,10 +16,10 @@ A structured collection of small, practical programming lessons, published autom
 ## Learning dashboard
 
 <!-- DAILY_ENTRIES_START -->
-**Published topics:** 2  
-**Latest update (IST):** 2026-11-24  
+**Published topics:** 3  
+**Latest update (IST):** 2026-11-25  
 **Reviewed library size:** 100  
-**Remaining unpublished topics:** 98
+**Remaining unpublished topics:** 97
 
 ## Categories
 
@@ -27,7 +27,7 @@ A structured collection of small, practical programming lessons, published autom
 | --- | ---: | ---: |
 | Python Programming | 1 | 10 |
 | Data Structures and Algorithms | 1 | 10 |
-| JavaScript | 0 | 10 |
+| JavaScript | 1 | 10 |
 | SQL and Databases | 0 | 10 |
 | Git and GitHub | 0 | 10 |
 | Object-Oriented Programming | 0 | 10 |
@@ -40,6 +40,7 @@ A structured collection of small, practical programming lessons, published autom
 
 | Date (IST) | Category | Topic |
 | --- | --- | --- |
+| 2026-11-25 | JavaScript | [Transform arrays with map](<javascript/2026-11-25--javascript-map.md>) |
 | 2026-11-24 | Data Structures and Algorithms | [Binary search on sorted data](<dsa/2026-11-24--dsa-binary-search.md>) |
 | 2026-11-22 | Python Programming | [List comprehensions with a filter](<python/2026-11-22--python-comprehensions.md>) |
 <!-- DAILY_ENTRIES_END -->

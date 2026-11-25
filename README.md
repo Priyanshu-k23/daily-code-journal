@@ -45,6 +45,10 @@ A structured collection of small, practical programming lessons, published autom
 | 2026-11-22 | Python Programming | [List comprehensions with a filter](<python/2026-11-22--python-comprehensions.md>) |
 <!-- DAILY_ENTRIES_END -->
 
+## Bonus lessons
+
+- 2026-11-25 (IST) · [Count duplicates in sorted data with Python's bisect](bonus/2026-11-25--python-bisect-count.md)
+
 ## Repository contents
 
 - `.github/workflows/daily-commit.yml`: scheduled and manual GitHub Actions publisher.

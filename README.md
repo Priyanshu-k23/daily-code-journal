@@ -48,6 +48,7 @@ A structured collection of small, practical programming lessons, published autom
 
 ## Bonus lessons
 
+- 2026-11-26 (IST) · [Filter missing values with SQL IS NULL](bonus/2026-11-26--sql-filter-null.md)
 - 2026-11-25 (IST) · [Count duplicates in sorted data with Python's bisect](bonus/2026-11-25--python-bisect-count.md)
 
 ## Repository contents

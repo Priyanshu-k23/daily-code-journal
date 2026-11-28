@@ -40,6 +40,14 @@
       "category": "git",
       "path": "git/2026-11-27--git-status.md",
       "generated_at_utc": "2026-11-27T08:45:57Z"
+    },
+    {
+      "topic_id": "oop-encapsulation",
+      "date_ist": "2026-11-28",
+      "title": "Protect invariants with encapsulation",
+      "category": "oop",
+      "path": "oop/2026-11-28--oop-encapsulation.md",
+      "generated_at_utc": "2026-11-28T12:12:44Z"
     }
   ]
 }

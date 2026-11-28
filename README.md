@@ -16,10 +16,10 @@ A structured collection of small, practical programming lessons, published autom
 ## Learning dashboard
 
 <!-- DAILY_ENTRIES_START -->
-**Published topics:** 5  
-**Latest update (IST):** 2026-11-27  
+**Published topics:** 6  
+**Latest update (IST):** 2026-11-28  
 **Reviewed library size:** 100  
-**Remaining unpublished topics:** 95
+**Remaining unpublished topics:** 94
 
 ## Categories
 
@@ -30,7 +30,7 @@ A structured collection of small, practical programming lessons, published autom
 | JavaScript | 1 | 10 |
 | SQL and Databases | 1 | 10 |
 | Git and GitHub | 1 | 10 |
-| Object-Oriented Programming | 0 | 10 |
+| Object-Oriented Programming | 1 | 10 |
 | Backend Development | 0 | 10 |
 | REST APIs | 0 | 10 |
 | Software Engineering Practices | 0 | 10 |
@@ -40,6 +40,7 @@ A structured collection of small, practical programming lessons, published autom
 
 | Date (IST) | Category | Topic |
 | --- | --- | --- |
+| 2026-11-28 | Object-Oriented Programming | [Protect invariants with encapsulation](<oop/2026-11-28--oop-encapsulation.md>) |
 | 2026-11-27 | Git and GitHub | [Inspect working-tree changes](<git/2026-11-27--git-status.md>) |
 | 2026-11-26 | SQL and Databases | [Filter database rows with WHERE](<sql/2026-11-26--sql-where-filter.md>) |
 | 2026-11-25 | JavaScript | [Transform arrays with map](<javascript/2026-11-25--javascript-map.md>) |
